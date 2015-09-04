@@ -64,6 +64,7 @@ void setup()
   effects.add(new RingsEffect());
   effects.add(new BounceEffect());
   effects.add(new TextEffect());
+  effects.add(new PlasmaEffect(opc));
   
   effectsIterator = effects.listIterator();
 
@@ -82,20 +83,28 @@ void nextEffect() {
   currentEffect = effectsIterator.next(); 
 }
 
+boolean autoAdvance=true;
+
 void keyPressed() {
- nextEffect(); 
+  if (key==' ') {
+   nextEffect();
+  } else if (key=='p') { // pause
+    autoAdvance = !autoAdvance;
+  }
 }
 
   
-int stepper=0;  
-  
+int stepper=0;    
   
 void draw()
 {
   
-  if (stepper++ > 1000) {
-     stepper=0;
-     nextEffect();
+  if (autoAdvance) {
+    if (stepper++ > 1000) {
+       stepper=0;
+       nextEffect();
+    }
+    
   }
   
   if (currentEffect != previousEffect ) {
